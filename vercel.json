@@ -1,0 +1,7 @@
+{
+  "buildCommand": "cd work-style-assessment && npm run build",
+  "devCommand": "cd work-style-assessment && npm run dev",
+  "installCommand": "cd work-style-assessment && npm install",
+  "framework": "nextjs",
+  "outputDirectory": "work-style-assessment/.next"
+}
