@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
 import { AssessmentStage, Answer, AssessmentResult, CandidateInfo } from '@/types';
 import { questions } from '@/data/questions';
 import { calculateResult } from '@/utils/scoring';
@@ -103,37 +102,33 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      <AnimatePresence mode="wait">
-        {stage === 'welcome' && (
-          <WelcomePage key="welcome" onStart={handleStart} />
-        )}
+      {stage === 'welcome' && (
+        <WelcomePage onStart={handleStart} />
+      )}
 
-        {stage === 'info' && (
-          <CandidateInfoForm
-            key="info"
-            onSubmit={handleCandidateInfoSubmit}
-            onBack={handleBackToWelcome}
-          />
-        )}
+      {stage === 'info' && (
+        <CandidateInfoForm
+          onSubmit={handleCandidateInfoSubmit}
+          onBack={handleBackToWelcome}
+        />
+      )}
 
-        {stage === 'testing' && (
-          <QuestionCard
-            key={`question-${currentQuestionIndex}`}
-            question={questions[currentQuestionIndex]}
-            currentIndex={currentQuestionIndex}
-            totalQuestions={questions.length}
-            onAnswer={handleAnswer}
-            initialAnswer={
-              answers.find((a) => a.questionId === questions[currentQuestionIndex].id)
-                ?.optionId
-            }
-          />
-        )}
+      {stage === 'testing' && (
+        <QuestionCard
+          question={questions[currentQuestionIndex]}
+          currentIndex={currentQuestionIndex}
+          totalQuestions={questions.length}
+          onAnswer={handleAnswer}
+          initialAnswer={
+            answers.find((a) => a.questionId === questions[currentQuestionIndex].id)
+              ?.optionId
+          }
+        />
+      )}
 
-        {stage === 'submitted' && candidateInfo && (
-          <SubmittedPage key="submitted" candidateName={candidateInfo.name} />
-        )}
-      </AnimatePresence>
+      {stage === 'submitted' && candidateInfo && (
+        <SubmittedPage candidateName={candidateInfo.name} />
+      )}
     </main>
   );
 }

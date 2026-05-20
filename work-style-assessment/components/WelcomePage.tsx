@@ -1,45 +1,23 @@
 'use client';
 
-import { motion } from 'framer-motion';
-
 interface WelcomePageProps {
   onStart: () => void;
 }
 
 export default function WelcomePage({ onStart }: WelcomePageProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="card max-w-2xl w-full"
-      >
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="card max-w-2xl w-full">
         <div className="text-center">
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4"
-          >
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             工作风格测评
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-lg text-gray-600 dark:text-gray-300 mb-8"
-          >
-            5分钟了解你的工作风格
-          </motion.p>
+          </h1>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="bg-primary-50 dark:bg-primary-900/20 rounded-xl p-6 mb-8 text-left"
-          >
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+            5分钟了解你的工作风格
+          </p>
+
+          <div className="bg-primary-50 dark:bg-primary-900/20 rounded-xl p-6 mb-8 text-left">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               📋 测评说明
             </h2>
@@ -61,14 +39,9 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
                 <span>本测试仅用于团队匹配与风险识别，非医疗诊断工具</span>
               </li>
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-6 mb-8"
-          >
+          <div className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-6 mb-8">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
               📊 评估维度
             </h3>
@@ -89,21 +62,16 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
                 <div className="text-gray-600 dark:text-gray-400">协作倾向</div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.button
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <button
             onClick={onStart}
-            className="btn-primary text-lg"
+            className="btn-primary text-lg hover:scale-105 active:scale-95 transition-transform"
           >
             开始测评 →
-          </motion.button>
+          </button>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
