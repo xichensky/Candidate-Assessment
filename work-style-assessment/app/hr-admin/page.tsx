@@ -48,9 +48,17 @@ export default function HRAdminPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            测评结果管理
-          </h1>
+          <div className="flex items-center justify-between mb-2">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+              测评结果管理
+            </h1>
+            <Link
+              href="/admin/clear-data"
+              className="px-4 py-2 bg-red-100 hover:bg-red-200 dark:bg-red-900/30 dark:hover:bg-red-900/50 text-red-700 dark:text-red-400 font-semibold rounded-lg transition-colors text-sm"
+            >
+              🗑️ 清空数据
+            </Link>
+          </div>
           <p className="text-gray-600 dark:text-gray-400">
             查看和管理所有候选人的工作风格测评结果
           </p>
