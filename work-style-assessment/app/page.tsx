@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { AssessmentStage, Answer, AssessmentResult, CandidateInfo } from '@/types';
 import { questions } from '@/data/questions';
@@ -16,6 +16,12 @@ export default function Home() {
   const [candidateInfo, setCandidateInfo] = useState<CandidateInfo | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
+  const [mounted, setMounted] = useState(false);
+
+  // 确保客户端渲染完成，避免微信浏览器白屏
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // 从欢迎页开始
   const handleStart = () => {
@@ -100,6 +106,18 @@ export default function Home() {
     // 显示提交成功页面
     setStage('submitted');
   };
+
+  // 显示加载状态，避免微信浏览器白屏
+  if (!mounted) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">加载中...</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen">
