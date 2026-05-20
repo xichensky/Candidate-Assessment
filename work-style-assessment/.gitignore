@@ -32,4 +32,4 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+# next-env.d.ts  # Commented out - this file should be committed for Vercel deployment
