@@ -96,127 +96,60 @@ export default function CandidateDetailPage() {
           </div>
         </motion.div>
 
-        {/* 综合评价 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="card mb-6"
-        >
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            📝 综合评价
-          </h2>
-          <p className="text-lg text-gray-700 dark:text-gray-300">
-            {assessment.summary}
-          </p>
-        </motion.div>
+	      {/* 综合评价 */}
+	      <motion.div
+	        initial={{ opacity: 0, y: 20 }}
+	        animate={{ opacity: 1, y: 0 }}
+	        transition={{ delay: 0.2 }}
+	        className="card mb-6"
+	      >
+	        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+	          📝 综合评价
+	        </h2>
+	        <p className="text-lg text-gray-700 dark:text-gray-300">
+	          {assessment.summary}
+	        </p>
+	      </motion.div>
 
-        {/* 雷达图和分数条 */}
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            className="card"
-          >
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-              工作风格雷达图
-            </h2>
-            <RadarChart result={submission.result} />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-            className="card"
-          >
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
-              详细评分
-            </h2>
-            <div className="space-y-6">
-              <ScoreBar
-                label="内在能量 & 弹性指数"
-                score={submission.result.energy}
-                maxScore={3}
-                color="bg-green-500"
-                description={submission.result.energyLevel}
-                icon="⚡"
-              />
-              <ScoreBar
-                label="防御性 & 攻击风险指数"
-                score={submission.result.defense}
-                maxScore={12}
-                color="bg-yellow-500"
-                description={submission.result.defenseLevel}
-                icon="🛡️"
-                reverse
-              />
-              <ScoreBar
-                label="团队协作倾向"
-                score={submission.result.collaboration}
-                maxScore={3}
-                minScore={-3}
-                color="bg-blue-500"
-                description={submission.result.collaborationLevel}
-                icon="🤝"
-              />
-            </div>
-          </motion.div>
-        </div>
-
-        {/* 优势与建议 */}
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          {assessment.strengths.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="card bg-green-50 dark:bg-green-900/10 border-2 border-green-200 dark:border-green-800"
-            >
-              <h3 className="text-xl font-bold text-green-800 dark:text-green-300 mb-4 flex items-center">
-                <span className="text-2xl mr-2">✨</span>
-                优势特点
-              </h3>
-              <ul className="space-y-2">
-                {assessment.strengths.map((strength, index) => (
-                  <li
-                    key={index}
-                    className="text-green-700 dark:text-green-400 flex items-start"
-                  >
-                    <span className="mr-2">•</span>
-                    <span>{strength}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          )}
-
-          {assessment.suggestions.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="card bg-blue-50 dark:bg-blue-900/10 border-2 border-blue-200 dark:border-blue-800"
-            >
-              <h3 className="text-xl font-bold text-blue-800 dark:text-blue-300 mb-4 flex items-center">
-                <span className="text-2xl mr-2">💡</span>
-                关注要点
-              </h3>
-              <ul className="space-y-2">
-                {assessment.suggestions.map((suggestion, index) => (
-                  <li
-                    key={index}
-                    className="text-blue-700 dark:text-blue-400 flex items-start"
-                  >
-                    <span className="mr-2">•</span>
-                    <span>{suggestion}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          )}
-        </div>
+	      {/* 详细评分（精简版，仅数值条形图） */}
+	      <motion.div
+	        initial={{ opacity: 0, y: 20 }}
+	        animate={{ opacity: 1, y: 0 }}
+	        transition={{ delay: 0.3 }}
+	        className="card mb-6"
+	      >
+	        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
+	          详细评分
+	        </h2>
+	        <div className="space-y-6">
+	          <ScoreBar
+	            label="内在能量 & 弹性指数"
+	            score={submission.result.energy}
+	            maxScore={3}
+	            color="bg-green-500"
+	            description={submission.result.energyLevel}
+	            icon="⚡"
+	          />
+	          <ScoreBar
+	            label="防御性 & 攻击风险指数"
+	            score={submission.result.defense}
+	            maxScore={12}
+	            color="bg-yellow-500"
+	            description={submission.result.defenseLevel}
+	            icon="🛡️"
+	            reverse
+	          />
+	          <ScoreBar
+	            label="团队协作倾向"
+	            score={submission.result.collaboration}
+	            maxScore={3}
+	            minScore={-3}
+	            color="bg-blue-500"
+	            description={submission.result.collaborationLevel}
+	            icon="🤝"
+	          />
+	        </div>
+	      </motion.div>
 
         {/* 答题详情 - 新增部分 */}
         <AnswerDetails answers={submission.answers} />

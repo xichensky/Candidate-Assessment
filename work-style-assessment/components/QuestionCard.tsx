@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Question, Answer } from '@/types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface QuestionCardProps {
   question: Question;
@@ -19,8 +19,14 @@ export default function QuestionCard({
   onAnswer,
   initialAnswer,
 }: QuestionCardProps) {
-  const [selectedOption, setSelectedOption] = useState<string | null>(initialAnswer || null);
-  const [showError, setShowError] = useState(false);
+	const [selectedOption, setSelectedOption] = useState<string | null>(initialAnswer || null);
+	const [showError, setShowError] = useState(false);
+
+	// 当题目或外部传入的初始答案变化时，重置/同步当前选中项
+	useEffect(() => {
+	  setSelectedOption(initialAnswer || null);
+	  setShowError(false);
+	}, [initialAnswer, question.id]);
 
   const handleOptionSelect = (optionId: string) => {
     setSelectedOption(optionId);
