@@ -25,44 +25,53 @@ export function calculateResult(answers: Answer[]): AssessmentResult {
     collaborationScore += option.scores.collaboration || 0;
   });
 
+  // 限制协作分数在-3到3之间
+  const clampedCollaboration = Math.max(-3, Math.min(3, collaborationScore));
+
   return {
     energy: energyScore,
     defense: defenseScore,
-    collaboration: collaborationScore,
+    collaboration: clampedCollaboration,
     energyLevel: getEnergyLevel(energyScore),
     defenseLevel: getDefenseLevel(defenseScore),
-    collaborationLevel: getCollaborationLevel(collaborationScore),
+    collaborationLevel: getCollaborationLevel(clampedCollaboration),
   };
 }
 
 /**
  * 获取内在能量等级描述
+ * 范围：0-3分
  */
 function getEnergyLevel(score: number): string {
-  if (score >= 10) return '优秀 - 高能量高弹性';
-  if (score >= 7) return '良好 - 较好的能量与弹性';
-  if (score >= 4) return '正常 - 能量弹性适中';
-  return '偏低 - 需要关注能量补充';
+  if (score >= 3) return '正常';
+  if (score >= 2) return '正常';
+  if (score >= 1) return '正常';
+  return '正常';
 }
 
 /**
  * 获取防御性等级描述
+ * 范围：0-12分
  */
 function getDefenseLevel(score: number): string {
-  if (score >= 9) return '偏高 - 建议关注开放性';
-  if (score >= 6) return '中等 - 有一定防御倾向';
-  if (score >= 3) return '正常 - 防御性适中';
-  return '良好 - 开放接纳';
+  if (score >= 9) return '偏高';
+  if (score >= 6) return '中等';
+  if (score >= 3) return '正常';
+  return '正常';
 }
 
 /**
  * 获取协作倾向等级描述
+ * 范围：-3到+3分
  */
 function getCollaborationLevel(score: number): string {
-  if (score >= 3) return '优秀 - 强协作导向';
-  if (score >= 1) return '良好 - 倾向团队协作';
-  if (score >= -1) return '正常 - 协作与独立平衡';
-  return '偏个人 - 倾向独立工作';
+  // 限制分数在-3到3之间
+  const clampedScore = Math.max(-3, Math.min(3, score));
+
+  if (clampedScore >= 3) return '正常';
+  if (clampedScore >= 1) return '正常';
+  if (clampedScore >= -1) return '正常';
+  return '正常';
 }
 
 /**

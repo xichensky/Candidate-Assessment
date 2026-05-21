@@ -2,9 +2,9 @@ import { Question } from '@/types';
 
 /**
  * 工作风格测评题目
- * 
+ *
  * 评分说明：
- * 模块1 - 内在能量 & 弹性指数（0-12分）：越高表示能量越足、弹性越好
+ * 模块1 - 内在能量 & 弹性指数（0-3分）：越高表示能量越足、弹性越好
  * 模块2 - 防御性 & 攻击风险指数（0-12分）：越高表示防御性越强、攻击风险越高
  * 模块3 - 团队协作倾向（-3到+3分）：正分表示协作倾向强，负分表示个人主义倾向
  */
@@ -16,10 +16,10 @@ export const questions: Question[] = [
     module: 1,
     text: '当你发现一个问题短期内很难解决时，你更可能：',
     options: [
-      { id: 'A', text: '先放一放，等条件成熟再说', scores: { energy: 1 } },
-      { id: 'B', text: '拆成更小的问题逐步推进', scores: { energy: 4 } },
-      { id: 'C', text: '反复思考哪里出了根本性错误', scores: { energy: 2 } },
-      { id: 'D', text: '转向处理其他更容易推进的事情', scores: { energy: 1 } },
+      { id: 'A', text: '先放一放，等条件成熟再说', scores: { energy: 0 } },
+      { id: 'B', text: '拆成更小的问题逐步推进', scores: { energy: 1 } },
+      { id: 'C', text: '反复思考哪里出了根本性错误', scores: { energy: 1 } },
+      { id: 'D', text: '转向处理其他更容易推进的事情', scores: { energy: 0 } },
     ],
   },
   {
@@ -27,9 +27,9 @@ export const questions: Question[] = [
     module: 1,
     text: '当你回顾过去一年时，你更常记得的是:',
     options: [
-      { id: 'A', text: '做成的事情', scores: { energy: 4 } },
-      { id: 'B', text: '没做成但学到的东西', scores: { energy: 3 } },
-      { id: 'C', text: '本可以做得更好的地方', scores: { energy: 1 } },
+      { id: 'A', text: '做成的事情', scores: { energy: 1 } },
+      { id: 'B', text: '没做成但学到的东西', scores: { energy: 1 } },
+      { id: 'C', text: '本可以做得更好的地方', scores: { energy: 0 } },
       { id: 'D', text: '外部条件带来的限制', scores: { energy: 0 } },
     ],
   },
@@ -38,9 +38,9 @@ export const questions: Question[] = [
     module: 1,
     text: '如果连续几次尝试都没有明显进展，你通常会',
     options: [
-      { id: 'A', text: '调整方法继续尝试', scores: { energy: 4 } },
-      { id: 'B', text: '暂停一下重新评估方向', scores: { energy: 3 } },
-      { id: 'C', text: '怀疑这个方向是否本就不值得', scores: { energy: 1 } },
+      { id: 'A', text: '调整方法继续尝试', scores: { energy: 1 } },
+      { id: 'B', text: '暂停一下重新评估方向', scores: { energy: 1 } },
+      { id: 'C', text: '怀疑这个方向是否本就不值得', scores: { energy: 0 } },
       { id: 'D', text: '等待外部变化再行动', scores: { energy: 0 } },
     ],
   },
