@@ -138,7 +138,7 @@ export default function CandidateDetailPage() {
               <ScoreBar
                 label="内在能量 & 弹性指数"
                 score={submission.result.energy}
-                maxScore={12}
+                maxScore={3}
                 color="bg-green-500"
                 description={submission.result.energyLevel}
                 icon="⚡"

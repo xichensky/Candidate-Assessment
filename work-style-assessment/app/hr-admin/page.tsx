@@ -199,7 +199,7 @@ function CandidateCard({
                 <div>
                   <span className="text-gray-500 dark:text-gray-400">内在能量：</span>
                   <span className="font-semibold text-gray-900 dark:text-white ml-1">
-                    {submission.result.energy}/12
+                    {submission.result.energy}/3
                   </span>
                 </div>
                 <div>

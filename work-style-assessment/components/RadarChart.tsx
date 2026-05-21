@@ -24,7 +24,7 @@ export default function RadarChart({ result }: RadarChartProps) {
   const data = [
     {
       dimension: '内在能量',
-      value: normalizeScore(result.energy, 12),
+      value: normalizeScore(result.energy, 3),
       fullMark: 100,
     },
     {
