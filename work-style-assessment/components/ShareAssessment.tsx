@@ -2,15 +2,13 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { QRCodeSVG } from 'qrcode.react';
 
 interface ShareAssessmentProps {
   baseUrl?: string;
 }
 
 export default function ShareAssessment({ baseUrl }: ShareAssessmentProps) {
-  const [showToast, setShowToast] = useState(false);
-  const [showQR, setShowQR] = useState(false);
+	  const [showToast, setShowToast] = useState(false);
 
   // 获取候选人端链接
   const assessmentUrl = typeof window !== 'undefined' 
@@ -29,32 +27,24 @@ export default function ShareAssessment({ baseUrl }: ShareAssessmentProps) {
     }
   };
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2 }}
-      className="card bg-gradient-to-br from-primary-50 to-blue-50 dark:from-primary-900/20 dark:to-blue-900/20 border-2 border-primary-200 dark:border-primary-800"
-    >
-      <div className="flex items-start justify-between mb-6">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
-            <span className="text-3xl">🔗</span>
-            分享测评问卷
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400">
-            将以下链接发送给候选人，或让候选人扫描二维码开始测评
-          </p>
-        </div>
-        <button
-          onClick={() => setShowQR(!showQR)}
-          className="px-4 py-2 bg-white dark:bg-gray-800 border-2 border-primary-300 dark:border-primary-700 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/30 transition-colors text-sm font-medium text-gray-700 dark:text-gray-300"
-        >
-          {showQR ? '隐藏二维码' : '显示二维码'}
-        </button>
-      </div>
+	  return (
+	    <motion.div
+	      initial={{ opacity: 0, y: 20 }}
+	      animate={{ opacity: 1, y: 0 }}
+	      transition={{ delay: 0.2 }}
+	      className="card bg-gradient-to-br from-primary-50 to-blue-50 dark:from-primary-900/20 dark:to-blue-900/20 border-2 border-primary-200 dark:border-primary-800"
+	    >
+	      <div className="mb-6">
+	        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+	          <span className="text-3xl">🔗</span>
+	          分享测评问卷
+	        </h2>
+	        <p className="text-gray-600 dark:text-gray-400">
+	          将以下链接发送给候选人，点击右侧按钮复制链接
+	        </p>
+	      </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+	      <div className="grid gap-6">
         {/* 链接部分 */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
@@ -90,48 +80,17 @@ export default function ShareAssessment({ baseUrl }: ShareAssessmentProps) {
           </div>
           
           {/* 使用提示 */}
-          <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-            <h3 className="text-sm font-semibold text-blue-900 dark:text-blue-300 mb-2">
-              💡 使用方式
-            </h3>
-            <ul className="text-sm text-blue-800 dark:text-blue-400 space-y-1">
-              <li>• 复制链接发送给候选人（邮件/微信/短信）</li>
-              <li>• 或展示二维码让候选人扫描</li>
-              <li>• 候选人完成后自动收到邮件通知</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* 二维码部分 */}
-        <AnimatePresence>
-          {showQR && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.2 }}
-              className="flex flex-col items-center"
-            >
-              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 self-start">
-                二维码
-              </label>
-              <div className="bg-white p-6 rounded-2xl shadow-lg border-4 border-primary-200 dark:border-primary-700">
-                <QRCodeSVG
-                  value={assessmentUrl}
-                  size={200}
-                  level="H"
-                  includeMargin={true}
-                  bgColor="#ffffff"
-                  fgColor="#000000"
-                />
-              </div>
-              <p className="mt-3 text-sm text-gray-600 dark:text-gray-400 text-center">
-                扫描二维码开始测评
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+	          <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+	            <h3 className="text-sm font-semibold text-blue-900 dark:text-blue-300 mb-2">
+	              💡 使用方式
+	            </h3>
+	            <ul className="text-sm text-blue-800 dark:text-blue-400 space-y-1">
+	              <li>• 复制链接发送给候选人（邮件/微信/短信）</li>
+	              <li>• 候选人完成后自动收到邮件通知</li>
+	            </ul>
+	          </div>
+	        </div>
+	      </div>
 
       {/* 复制成功提示 */}
       <AnimatePresence>
