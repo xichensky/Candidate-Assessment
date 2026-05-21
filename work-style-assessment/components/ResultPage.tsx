@@ -41,26 +41,11 @@ export default function ResultPage({ result, onRestart }: ResultPageProps) {
           </motion.p>
         </div>
 
-        {/* 综合评价 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="card mb-6"
-        >
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            📝 综合评价
-          </h2>
-          <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
-            {assessment.summary}
-          </p>
-        </motion.div>
-
-	      {/* 详细评分（精简版，仅数值条形图） */}
+	      {/* 详细评分 */}
 	      <motion.div
 	        initial={{ opacity: 0, y: 20 }}
 	        animate={{ opacity: 1, y: 0 }}
-	        transition={{ delay: 0.5 }}
+	        transition={{ delay: 0.4 }}
 	        className="card mb-8"
 	      >
 	        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">

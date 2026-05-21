@@ -38,9 +38,9 @@ export default function CandidateDetailPage() {
     );
   }
 
-  const assessment = getOverallAssessment(submission.result);
+	  const assessment = getOverallAssessment(submission.result);
 
-  return (
+	  return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4">
       <div className="max-w-6xl mx-auto">
         {/* 返回按钮 */}
@@ -94,28 +94,13 @@ export default function CandidateDetailPage() {
               </div>
             </div>
           </div>
-        </motion.div>
+	        </motion.div>
 
-	      {/* 综合评价 */}
+	      {/* 详细评分 */}
 	      <motion.div
 	        initial={{ opacity: 0, y: 20 }}
 	        animate={{ opacity: 1, y: 0 }}
 	        transition={{ delay: 0.2 }}
-	        className="card mb-6"
-	      >
-	        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-	          📝 综合评价
-	        </h2>
-	        <p className="text-lg text-gray-700 dark:text-gray-300">
-	          {assessment.summary}
-	        </p>
-	      </motion.div>
-
-	      {/* 详细评分（精简版，仅数值条形图） */}
-	      <motion.div
-	        initial={{ opacity: 0, y: 20 }}
-	        animate={{ opacity: 1, y: 0 }}
-	        transition={{ delay: 0.3 }}
 	        className="card mb-6"
 	      >
 	        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">

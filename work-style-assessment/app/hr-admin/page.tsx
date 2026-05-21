@@ -5,7 +5,8 @@ import { motion } from 'framer-motion';
 import { AssessmentSubmission } from '@/types';
 import { getAllSubmissions } from '@/utils/storage';
 import Link from 'next/link';
-import ShareAssessment from '@/components/ShareAssessment';
+// ShareAssessment 模块暂时下线
+// import ShareAssessment from '@/components/ShareAssessment';
 
 export default function HRAdminPage() {
   const [submissions, setSubmissions] = useState<AssessmentSubmission[]>([]);
@@ -108,10 +109,7 @@ export default function HRAdminPage() {
           </div>
         </motion.div>
 
-        {/* 分享测评模块 */}
-        <ShareAssessment />
-
-        {/* 搜索和筛选 */}
+	      {/* 搜索和筛选 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
