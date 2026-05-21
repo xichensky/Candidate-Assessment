@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>导出与删除功能 Demo</title>
+  <style>
+    body { font-family: system-ui, -apple-system; margin: 0; background: #f5f5f5; padding: 24px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .card { background: #fff; border: 1px solid #e0e0e0; padding: 24px; border-radius: 8px; margin-bottom: 24px; }
+    h1, h2 { margin: 0 0 16px; color: #333; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .export-menu { position: relative; display: inline-block; }
+    .export-btn { padding: 8px 16px; border-radius: 6px; border: 1px solid #1976d2; background: #1976d2; 
+                  color: #fff; cursor: pointer; font-size: 14px; }
+    .export-dropdown { position: absolute; right: 0; top: 40px; background: #fff; border: 1px solid #ddd; 
+                       border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,.15); padding: 4px 0; 
+                       display: none; min-width: 140px; z-index: 10; }
+    .export-dropdown button { width: 100%; text-align: left; border: none; background: #fff; 
+                              padding: 8px 16px; font-size: 14px; cursor: pointer; }
+    .export-dropdown button:hover { background: #f5f5f5; }
+    table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+    th, td { border: 1px solid #ddd; padding: 12px; font-size: 14px; text-align: left; }
+    th { background: #f5f5f5; font-weight: 600; }
+    .btn { padding: 6px 12px; border-radius: 4px; border: 1px solid #ddd; background: #fff; 
+           cursor: pointer; font-size: 12px; margin-right: 4px; }
+    .btn-danger { border-color: #d32f2f; color: #d32f2f; }
+    .btn-danger:hover { background: #ffebee; }
+    .info { font-size: 13px; color: #666; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>导出与删除功能 - 页面 Demo</h1>
+    
+    <!-- Demo 1: 详情页导出功能 -->
+    <div class="card">
+      <div class="header">
+        <div>
+          <h2>工作风格测评结果</h2>
+          <p class="info">候选人：张三 ｜ 职位：前端工程师 ｜ 测评日期：2026-05-21</p>
+        </div>
+        <div class="export-menu">
+          <button id="exportBtn" class="export-btn">导出 ▼</button>
+          <div id="exportDropdown" class="export-dropdown">
+            <button onclick="handleExport('word')">📄 导出为 Word</button>
+            <button onclick="handleExport('pdf')">📑 导出为 PDF</button>
+          </div>
+        </div>
+      </div>
+
+      <h3>总体结果</h3>
+      <p>综合评分：86 分（匹配度：高）</p>
+      <p>评语：在执行力与沟通协作维度表现突出，适合需要跨团队协作的岗位。</p>
+
+      <h3>维度得分</h3>
+      <table>
+        <tr><th>维度</th><th>得分</th><th>等级</th><th>说明</th></tr>
+        <tr><td>内在能量 & 弹性指数</td><td>2/3</td><td>中高</td><td>具备良好的抗压能力和恢复能力</td></tr>
+        <tr><td>防御性 & 攻击风险指数</td><td>3/12</td><td>低</td><td>倾向开放沟通，防御性较低</td></tr>
+        <tr><td>团队协作倾向</td><td>2/3</td><td>高</td><td>善于团队合作，协作意愿强</td></tr>
+      </table>
+    </div>
+
+    <!-- Demo 2: 列表页删除功能 -->
+    <div class="card">
+      <h2>测评结果列表</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>候选人</th>
+            <th>职位</th>
+            <th>测评日期</th>
+            <th>内在能量</th>
+            <th>防御性</th>
+            <th>协作倾向</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr data-id="1">
+            <td>张三</td><td>前端工程师</td><td>2026-05-20</td>
+            <td>2/3</td><td>3/12</td><td>2/3</td>
+            <td>
+              <button class="btn" onclick="viewDetail(1)">查看详情</button>
+              <button class="btn" onclick="exportRecord(1)">导出</button>
+              <button class="btn btn-danger" onclick="deleteRecord(1, '张三')">删除</button>
+            </td>
+          </tr>
+          <tr data-id="2">
+            <td>李四</td><td>产品经理</td><td>2026-05-18</td>
+            <td>1/3</td><td>7/12</td><td>1/3</td>
+            <td>
+              <button class="btn" onclick="viewDetail(2)">查看详情</button>
+              <button class="btn" onclick="exportRecord(2)">导出</button>
+              <button class="btn btn-danger" onclick="deleteRecord(2, '李四')">删除</button>
+            </td>
+          </tr>
+          <tr data-id="3">
+            <td>王五</td><td>后端工程师</td><td>2026-05-17</td>
+            <td>3/3</td><td>2/12</td><td>3/3</td>
+            <td>
+              <button class="btn" onclick="viewDetail(3)">查看详情</button>
+              <button class="btn" onclick="exportRecord(3)">导出</button>
+              <button class="btn btn-danger" onclick="deleteRecord(3, '王五')">删除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // 导出按钮下拉菜单
+    const exportBtn = document.getElementById('exportBtn');
+    const dropdown = document.getElementById('exportDropdown');
+
+    exportBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', () => {
+      dropdown.style.display = 'none';
+    });
+
+    // 导出功能
+    function handleExport(format) {
+      alert(`正在导出为 ${format.toUpperCase()} 格式...\n\n实际项目中会调用导出函数生成文件并下载。`);
+      dropdown.style.display = 'none';
+    }
+
+    // 查看详情
+    function viewDetail(id) {
+      alert(`跳转到详情页：/hr-admin/${id}`);
+    }
+
+    // 导出记录
+    function exportRecord(id) {
+      alert(`导出记录 ID: ${id}\n\n将展示格式选择菜单`);
+    }
+
+    // 删除记录
+    function deleteRecord(id, name) {
+      if (confirm(`确认删除候选人"${name}"的测评记录？\n\n删除后该记录将从列表中移除，不再对 HR 可见。`)) {
+        const row = document.querySelector(`tr[data-id="${id}"]`);
+        if (row) {
+          row.style.transition = 'opacity 0.3s';
+          row.style.opacity = '0';
+          setTimeout(() => {
+            row.remove();
+            alert('✅ 已删除 1 条测评记录');
+          }, 300);
+        }
+      }
+    }
+  </script>
+</body>
+</html>

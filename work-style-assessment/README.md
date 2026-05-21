@@ -18,6 +18,12 @@
   - 雷达图展示工作风格
   - 详细的分数条图表
   - 个性化的优势与建议分析
+- **HR 后台管理**：
+  - 查看所有候选人测评结果
+  - 📄 **导出功能**：支持导出为 Word / PDF 格式（v0.2.0 新增）
+  - 🗑️ **删除功能**：单条记录精准删除（v0.2.0 新增）
+  - 搜索和排序功能
+  - 统计数据展示
 - **优秀的用户体验**：
   - 响应式设计，支持移动端
   - 深色模式支持
@@ -31,6 +37,7 @@
 - **样式**：Tailwind CSS
 - **动画**：Framer Motion
 - **图表**：Recharts
+- **导出**：docx, jspdf, jspdf-autotable (v0.2.0 新增)
 - **语言**：TypeScript
 
 ## 📁 项目结构
@@ -40,19 +47,26 @@ work-style-assessment/
 ├── app/                    # Next.js App Router
 │   ├── layout.tsx         # 根布局
 │   ├── page.tsx           # 主页面（状态管理）
+│   ├── hr-admin/          # HR 后台
+│   │   ├── page.tsx      # 结果列表页
+│   │   └── [id]/         # 详情页
 │   └── globals.css        # 全局样式
 ├── components/            # React 组件
 │   ├── WelcomePage.tsx   # 欢迎页
 │   ├── QuestionCard.tsx  # 题目卡片
 │   ├── ResultPage.tsx    # 结果页
 │   ├── RadarChart.tsx    # 雷达图
-│   └── ScoreBar.tsx      # 分数条
+│   ├── ScoreBar.tsx      # 分数条
+│   ├── ExportButton.tsx  # 导出按钮（v0.2.0）
+│   └── DeleteButton.tsx  # 删除按钮（v0.2.0）
 ├── data/                  # 数据层
 │   └── questions.ts      # 题目数据
 ├── types/                 # TypeScript 类型定义
 │   └── index.ts
 ├── utils/                 # 工具函数
-│   └── scoring.ts        # 评分逻辑
+│   ├── scoring.ts        # 评分逻辑
+│   ├── storage.ts        # 数据存储
+│   └── export.ts         # 导出功能（v0.2.0）
 └── package.json
 ```
 
@@ -124,12 +138,43 @@ npm run start
 
 ## 📝 使用说明
 
+### 候选人端
 1. 测评者点击"开始测评"进入问卷
 2. 按第一直觉选择最符合的选项
 3. 系统自动进行进度追踪和答题验证
 4. 完成所有题目后自动计算并展示结果
 5. 可以查看雷达图、详细分数和个性化建议
 6. 支持重新测评功能
+
+### HR 后台（/hr-admin）
+1. 查看所有候选人测评结果列表
+2. 点击记录查看详细评分和答题详情
+3. 使用导出功能：
+   - 点击「导出」按钮
+   - 选择「导出为 Word」或「导出为 PDF」
+   - 文件自动下载到本地
+4. 删除测评记录：
+   - 点击「删除」按钮
+   - 确认后从列表中移除
+
+## 📚 版本历史
+
+### v0.2.0 (2026-05-21)
+- ✨ 新增导出功能（Word / PDF）
+- ✨ 新增单条记录删除功能
+- 📝 详见 [迭代总结](./ITERATION_V0.2.0_SUMMARY.md)
+
+### v0.1.0
+- 🎉 初始版本发布
+- ✅ 完整的测评流程
+- ✅ HR 后台基础功能
+
+## 📖 相关文档
+
+- [功能 PRD](./ITERATION_EXPORT_DELETE_PRD.md) - 导出与删除功能需求文档
+- [迭代总结](./ITERATION_V0.2.0_SUMMARY.md) - v0.2.0 开发总结
+- [测试清单](./ITERATION_V0.2.0_TEST_CHECKLIST.md) - 功能测试清单
+- [HTML Demo](./ITERATION_EXPORT_DELETE_DEMO.html) - 页面交互演示
 
 ## ⚠️ 重要声明
 

@@ -9,6 +9,7 @@ import { questions } from '@/data/questions';
 import { getOverallAssessment } from '@/utils/scoring';
 import RadarChart from '@/components/RadarChart';
 import ScoreBar from '@/components/ScoreBar';
+import ExportButton from '@/components/ExportButton';
 
 export default function CandidateDetailPage() {
   const params = useParams();
@@ -87,10 +88,13 @@ export default function CandidateDetailPage() {
                 </span>
               </div>
             </div>
-            <div className="text-right">
-              <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">提交编号</div>
-              <div className="text-xs font-mono text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded">
-                {submission.id}
+            <div className="flex items-center gap-4">
+              <ExportButton submission={submission} />
+              <div className="text-right">
+                <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">提交编号</div>
+                <div className="text-xs font-mono text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded">
+                  {submission.id}
+                </div>
               </div>
             </div>
           </div>

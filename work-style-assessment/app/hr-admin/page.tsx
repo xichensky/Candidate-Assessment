@@ -6,16 +6,21 @@ import { AssessmentSubmission } from '@/types';
 import { getAllSubmissions } from '@/utils/storage';
 import Link from 'next/link';
 import ShareAssessment from '@/components/ShareAssessment';
+import DeleteButton from '@/components/DeleteButton';
+import ExportButton from '@/components/ExportButton';
 
 export default function HRAdminPage() {
   const [submissions, setSubmissions] = useState<AssessmentSubmission[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'date' | 'name' | 'position'>('date');
 
-  useEffect(() => {
-    // 加载所有提交数据
+  const loadSubmissions = () => {
     const data = getAllSubmissions();
     setSubmissions(data);
+  };
+
+  useEffect(() => {
+    loadSubmissions();
   }, []);
 
   // 过滤和排序
@@ -159,7 +164,12 @@ export default function HRAdminPage() {
           ) : (
             <div className="space-y-4">
               {filteredSubmissions.map((submission, index) => (
-                <CandidateCard key={submission.id} submission={submission} index={index} />
+                <CandidateCard
+                  key={submission.id}
+                  submission={submission}
+                  index={index}
+                  onDelete={loadSubmissions}
+                />
               ))}
             </div>
           )}
@@ -173,78 +183,89 @@ export default function HRAdminPage() {
 function CandidateCard({
   submission,
   index,
+  onDelete,
 }: {
   submission: AssessmentSubmission;
   index: number;
+  onDelete: () => void;
 }) {
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.05 }}
+      className="card hover:shadow-2xl transition-shadow border-2 border-transparent hover:border-primary-500"
     >
-      <Link href={`/hr-admin/${submission.id}`}>
-        <div className="card hover:shadow-2xl transition-shadow cursor-pointer border-2 border-transparent hover:border-primary-500">
-          <div className="flex items-center justify-between">
-            <div className="flex-1">
-              <div className="flex items-center gap-4 mb-3">
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {submission.candidateInfo.name}
-                </h3>
-                <span className="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm font-semibold">
-                  {submission.candidateInfo.position}
+      <div className="flex items-center justify-between">
+        <Link href={`/hr-admin/${submission.id}`} className="flex-1 cursor-pointer">
+          <div>
+            <div className="flex items-center gap-4 mb-3">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                {submission.candidateInfo.name}
+              </h3>
+              <span className="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm font-semibold">
+                {submission.candidateInfo.position}
+              </span>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+              <div>
+                <span className="text-gray-500 dark:text-gray-400">内在能量：</span>
+                <span className="font-semibold text-gray-900 dark:text-white ml-1">
+                  {submission.result.energy}/3
                 </span>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                <div>
-                  <span className="text-gray-500 dark:text-gray-400">内在能量：</span>
-                  <span className="font-semibold text-gray-900 dark:text-white ml-1">
-                    {submission.result.energy}/3
-                  </span>
-                </div>
-                <div>
-                  <span className="text-gray-500 dark:text-gray-400">防御性：</span>
-                  <span className="font-semibold text-gray-900 dark:text-white ml-1">
-                    {submission.result.defense}/12
-                  </span>
-                </div>
-                <div>
-                  <span className="text-gray-500 dark:text-gray-400">协作倾向：</span>
-                  <span className="font-semibold text-gray-900 dark:text-white ml-1">
-                    {submission.result.collaboration}/3
-                  </span>
-                </div>
-                <div>
-                  <span className="text-gray-500 dark:text-gray-400">提交时间：</span>
-                  <span className="font-semibold text-gray-900 dark:text-white ml-1">
-                    {new Date(submission.submittedAt).toLocaleString('zh-CN', {
-                      month: '2-digit',
-                      day: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </span>
-                </div>
+              <div>
+                <span className="text-gray-500 dark:text-gray-400">防御性：</span>
+                <span className="font-semibold text-gray-900 dark:text-white ml-1">
+                  {submission.result.defense}/12
+                </span>
+              </div>
+              <div>
+                <span className="text-gray-500 dark:text-gray-400">协作倾向：</span>
+                <span className="font-semibold text-gray-900 dark:text-white ml-1">
+                  {submission.result.collaboration}/3
+                </span>
+              </div>
+              <div>
+                <span className="text-gray-500 dark:text-gray-400">提交时间：</span>
+                <span className="font-semibold text-gray-900 dark:text-white ml-1">
+                  {new Date(submission.submittedAt).toLocaleString('zh-CN', {
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
+                </span>
               </div>
             </div>
-            <div className="ml-4">
-              <svg
-                className="w-6 h-6 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </div>
           </div>
+        </Link>
+        <div className="ml-4 flex items-center gap-3">
+          <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
+            <ExportButton submission={submission} />
+            <DeleteButton
+              id={submission.id}
+              name={submission.candidateInfo.name}
+              onDelete={onDelete}
+            />
+          </div>
+          <Link href={`/hr-admin/${submission.id}`}>
+            <svg
+              className="w-6 h-6 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </Link>
         </div>
-      </Link>
+      </div>
     </motion.div>
   );
 }
